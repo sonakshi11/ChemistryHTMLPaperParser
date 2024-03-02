@@ -30,7 +30,7 @@ class ArticleProcessingArgs:
         metadata={"help": "The output folder where the validation results and relevant information is saved."},
     )
     output_type: Optional[str] = field(
-        default='pt',
+        default='jsonl',
         metadata={
             "choices": ["pt", "html", "jsonl"],
             "help": "output type"

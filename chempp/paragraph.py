@@ -4,7 +4,7 @@ import functools
 from typing import Optional, List, Union, Dict, Callable, Tuple
 from collections import OrderedDict
 
-from seqlbtoolkit.base_model.eval import Metric
+# from seqlbtoolkit.training.eval import Metric
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,7 @@ class Sentence:
             start_idx: Optional[int] = None,
             end_idx: Optional[int] = None,
             anno: Optional[Union[Dict[str, Dict[Tuple[int, int], str]], Dict[Tuple[int, int], str]]] = None,
-            grouped_anno: Optional[List[Metric]] = None,
+            grouped_anno =  None,
             word_tokenizer: Optional[Callable] = None
     ):
         self._text = text
@@ -153,7 +153,7 @@ class Paragraph:
                  text: Optional[str] = None,
                  sentences: Optional[List["Sentence"]] = None,
                  anno: Optional[dict] = None,
-                 grouped_anno: Optional[List[Metric]] = None,
+                 grouped_anno = None,
                  sent_tokenizer: Optional[Callable] = None):
         self._text = text
         self._tokens: Union[List[str], None] = None

@@ -135,8 +135,10 @@ output/
 *.db
 *.zip
 *.html
-*.ipynb
 .flaskenv
 app.py
 templates/
 static/
+
+*.jsonl
+*.out
