@@ -17,6 +17,17 @@ from .table import (
 )
 from .figure import Figure
 
+header_identifiers = {
+    'h1': '\h1',
+    'h2': '\h2',
+    'h3': '\h3',
+    'h4': '\h4',
+    'h5': '\h5',
+    'h6': '\h6',
+    'h7': '\h7',
+    'h8': '\h8',
+    'h9': '\h9'
+}
 
 def pop_xml_element_iter(root, del_tag: List[str], popped_items: Optional[list] = None):
     if popped_items is None:
@@ -128,8 +139,9 @@ def html_section_extract_nature(section_root,
         try:
             # if the child is a section title
             if re.match(r"h[0-9]", block_name):
+                identifier = header_identifiers.get(block_name, '')
                 element_type = ArticleElementType.SECTION_TITLE
-                target_txt = format_text(child.text)
+                target_txt = format_text(child.text) + identifier 
                 element_list.append(ArticleElement(type=element_type, content=target_txt))
             # if the child is a section block
             elif block_name == 'p':
@@ -170,17 +182,19 @@ def html_section_extract_wiley(section_root,
         try:
             # if the child is a section title
             if re.match(r"h[0-9]", child_name):
+                #adding an identifier for post processing
+                identifier = header_identifiers.get(child_name, '')
                 element_type = ArticleElementType.SECTION_TITLE
-                target_txt = format_text(child.text)
+                target_txt = format_text(child.text) + identifier 
                 element_list.append(ArticleElement(type=element_type, content=target_txt))
             # if the child is a section block
             elif child_name == 'p':
                 element_type = ArticleElementType.PARAGRAPH
-                target_txt = format_text(child.text)
+                target_txt = format_text(child.text) 
                 element_list.append(ArticleElement(type=element_type, content=target_txt))
             elif child_name == 'div' and child_class == 'article-table-content':
                 element_type = ArticleElementType.TABLE
-                tbl = html_table_extract_wiley(child)
+                tbl = html_table_extract_wiley(child) + ":" 
                 element_list.append(ArticleElement(type=element_type, content=tbl))
             elif 'figure' in child_name:
                 element_type = ArticleElementType.FIGURE

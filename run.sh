@@ -12,5 +12,5 @@ for doi in "${dois[@]}"; do
   modified_doi="${doi//\//@}.html"
   filepath="$file_directory$modified_doi"
   log_path="logs/${doi//\//@}.log"
-  nohup python tests/process_articles.py --input_dir "$filepath" --log_path "$log_path" >"nohup_wiley.out" 2>&1 &
+  nohup python tests/process_articles.py --input_dir "$filepath" --log_path "$log_path" --output_dir ./test >"nohup_wiley.out" 2>&1 &
 done
